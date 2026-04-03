@@ -25,6 +25,7 @@ public class StudentService
     // get all students data
 
     public List<Student> getallStudent()
+
     {
         return repo.findAll();
     }
@@ -48,5 +49,37 @@ public class StudentService
           return "Deleted Successfull";
     }
 
+    public List<Student> getStudentDep(String department)
+    {
+
+      /*  List<Student> allstudents = repo.findAll();
+        ArrayList<Student>  students= new ArrayList<>();
+
+        for(Student s:allstudents)
+        {
+            if(s.getDepartment().equals(dep))
+            {
+                students.add(s);
+            }
+        }
+
+        return students;*/
+       return repo.findByDepartment(department);
+
+
+    }
+
+    public List<Student> getaddressbaseddetails(String collegeaddress)
+    {
+        return repo.findByCollegeaddress(collegeaddress);
+
+    }
+
+    public int getDepCount(String dep)
+    {
+        List<Student> list = repo.findByDepartment(dep);
+        System.out.println("list size:"+list.size());
+        return list.size();
+    }
 
 }

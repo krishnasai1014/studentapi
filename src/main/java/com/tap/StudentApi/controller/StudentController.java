@@ -39,4 +39,24 @@ public class StudentController
         return ss.deleteStudent(id);
     }
 
+    @GetMapping("/department/{department}")
+    public List<Student> getStudentDep(@PathVariable String department)
+    {
+      return  ss.getStudentDep(department);
+    }
+
+    @GetMapping("/address/{collegeaddress}")
+    public List<Student> getaddress(@PathVariable String collegeaddress)
+    {
+        return ss.getaddressbaseddetails(collegeaddress);
+    }
+
+    @GetMapping("/departmetcount/{dep}")
+    public String getDepCount(@PathVariable String dep)
+    {
+        return "dep count:"+ss.getDepCount(dep);
+    }
+
+
+
 }
