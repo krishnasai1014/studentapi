@@ -1,6 +1,7 @@
 package com.tap.StudentApi.service;
 
 import com.tap.StudentApi.Repository.StudentRepository;
+import com.tap.StudentApi.dto.DepartmentResponse;
 import com.tap.StudentApi.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class StudentService
           return "Deleted Successfull";
     }
 
-    public List<Student> getStudentDep(String department)
+    public DepartmentResponse getStudentDep(String department)
     {
 
       /*  List<Student> allstudents = repo.findAll();
@@ -64,8 +65,11 @@ public class StudentService
         }
 
         return students;*/
-       return repo.findByDepartment(department);
+        List<Student> students = repo.findByDepartment(department);
 
+        Long count = repo.countStudentsByDepartment(department);
+
+        return new DepartmentResponse(count,students);
 
     }
 
@@ -75,11 +79,65 @@ public class StudentService
 
     }
 
-    public int getDepCount(String dep)
+    /*public Long countStudentsByDepartment(String dep)
     {
-        List<Student> list = repo.findByDepartment(dep);
+        *//*List<Student> list = repo.findByDepartment(dep);
         System.out.println("list size:"+list.size());
-        return list.size();
+        return list.size();*//*
+        return 0;
+    }*/
+
+    public Student updateStudentdeatils(Integer id,Student s)
+    {
+        Optional<Student> existing = repo.findById(id);
+
+        if(existing.isPresent())
+        {
+            Student student = existing.get();
+          //  student.setId(id);
+            student.setName(s.getName());
+            student.setDepartment(s.getDepartment());
+            student.setCollegeaddress(s.getCollegeaddress());
+            return repo.save(student);
+        }
+        else {
+            return null;
+        }
+
+
+    }
+
+    public Student updateStudentPartial(Integer id, Student s)
+    {
+
+        Optional<Student> existing = repo.findById(id);
+
+        if(existing.isPresent())
+        {
+            Student student = existing.get();
+            if(s.getName()!=null)
+            {
+                student.setName(s.getName());
+            }
+            if(s.getDepartment()!=null)
+            {
+                student.setDepartment(s.getDepartment());
+            }
+            if(s.getCollegeaddress()!=null)
+            {
+                student.setCollegeaddress(s.getCollegeaddress());
+            }
+          return  repo.save(student);
+
+        }
+        else {
+            return null;
+        }
+    }
+
+    public List<Student> getStudentsByName(String name)
+    {
+        return repo.findByName(name);
     }
 
 }

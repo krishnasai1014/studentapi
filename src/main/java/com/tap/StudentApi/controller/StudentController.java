@@ -1,6 +1,7 @@
 package com.tap.StudentApi.controller;
 
 
+import com.tap.StudentApi.dto.DepartmentResponse;
 import com.tap.StudentApi.entity.Student;
 import com.tap.StudentApi.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class StudentController
     }
 
     @GetMapping("/department/{department}")
-    public List<Student> getStudentDep(@PathVariable String department)
+    public DepartmentResponse getStudentDep(@PathVariable String department)
     {
       return  ss.getStudentDep(department);
     }
@@ -50,13 +51,33 @@ public class StudentController
     {
         return ss.getaddressbaseddetails(collegeaddress);
     }
-
+/*
     @GetMapping("/departmetcount/{dep}")
-    public String getDepCount(@PathVariable String dep)
+    public void getDepCount(@PathVariable String dep)
     {
-        return "dep count:"+ss.getDepCount(dep);
+       // return "dep count:"+ss.getDepCount(dep);
+    }*/
+
+    @PutMapping("/{id}")
+    public Student updateStudentdeatils(@PathVariable Integer id, @RequestBody Student s)
+    {
+
+     return   ss.updateStudentdeatils(id,s);
     }
 
+    @PatchMapping("/{id}")
+    public Student updateStudentPartial(@PathVariable Integer id, @RequestBody Student s)
+    {
+
+      return  ss.updateStudentPartial(id,s);
+
+    }
+
+    @GetMapping("/name/{name}")
+    public List<Student> getStudentsByName(@PathVariable String name)
+    {
+        return ss.getStudentsByName(name);
+    }
 
 
 }
