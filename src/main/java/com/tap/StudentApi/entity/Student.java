@@ -17,20 +17,24 @@ public class Student
       private  String name;
     @Column(name="department")
       private  String department;
+
+
     @Column(name="collegeaddress")
       private  String collegeaddress;
+    @Column(name="college_name")
+    private String collegeName;
 
 
-    public Student()
-    {
-
+    public Student() {
     }
 
-    public Student(Integer id, String name, String department, String collegeaddress) {
+
+    public Student(Integer id, String name, String department, String collegeaddress, String collegeName) {
         this.id = id;
         this.name = name;
         this.department = department;
         this.collegeaddress = collegeaddress;
+        this.collegeName = collegeName;
     }
 
     public Integer getId() {
@@ -65,13 +69,22 @@ public class Student
         this.collegeaddress = collegeaddress;
     }
 
+    public String getCollegeName() {
+        return collegeName;
+    }
+
+    public void setCollegeName(String collegeName) {
+        this.collegeName = collegeName;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", depaetment='" + department + '\'' +
+                ", department='" + department + '\'' +
                 ", collegeaddress='" + collegeaddress + '\'' +
+                ", collegeName='" + collegeName + '\'' +
                 '}';
     }
 }
